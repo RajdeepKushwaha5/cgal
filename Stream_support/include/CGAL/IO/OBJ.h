@@ -249,11 +249,14 @@ bool read_OBJ(std::istream& is,
   if(tex_found && verbose)
     std::cout << "NOTE: textures were found in this file, but were discarded." << std::endl;
 
-  if(points.empty() || (polygons.empty() && polylines.empty()))
+  // An empty OBJ file is valid: write_OBJ() succeeds on empty input, so read_OBJ()
+  // should be symmetric and also succeed, returning empty ranges rather than failing.
+  // We only warn in verbose mode so callers are aware, but we do not treat this as an error.
+  if(points.empty() && polygons.empty() && polylines.empty())
   {
     if(verbose)
-      std::cerr << "warning: empty file?" << std::endl;
-    return false;
+      std::cerr << "warning: OBJ file contains no geometry (points/faces/polylines)." << std::endl;
+    return true;
   }
 
   if(maxi > static_cast<int>(points.size()) || mini < -static_cast<int>(points.size()))
@@ -326,8 +329,10 @@ bool read_OBJ(std::istream& is,
                                     CGAL::Emptyset_iterator(), CGAL::Emptyset_iterator(),
                                     verbose);
 
-  // we want an item with only polylines to return 'false' in this function
-  return (success && !polygons.empty());
+  // Return false if the file had non-empty point data but no polygons (polylines-only file),
+  // since this overload cannot represent that. However, a fully empty file (0 points, 0 polygons)
+  // is valid — symmetric with write_OBJ() which succeeds on empty input.
+  return success && (!polygons.empty() || points.empty());
 }
 
 /// \ingroup PkgStreamSupportIoFuncsOBJ
