@@ -40,6 +40,13 @@ int my_nearbyint(const T& d)
   int z = int(d);
   T frac = d - T(z);
 
+  // On x87 with extended precision (e.g. long double), the subtraction
+  // d - T(z) can occasionally give |frac| >= 1.0 due to rounding differences
+  // between the truncation and the subsequent subtraction (issue #3583).
+  // Clamp frac into (-1, 1) by adjusting z.
+  if (frac >= T(1.0))  { frac -= T(1.0); ++z; }
+  else if (frac <= T(-1.0)) { frac += T(1.0); --z; }
+
   CGAL_assertion(CGAL::abs(frac) < T(1.0));
 
   if (frac > 0.5)
