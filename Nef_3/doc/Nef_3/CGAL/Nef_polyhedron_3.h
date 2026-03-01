@@ -26,17 +26,18 @@ namespace CGAL {
 
 \cgalHeading{Template Parameters}
 
-  The first parameter requires one of the following exact kernels:
+  When the class template is instantiated, the first template parameter
+  can be substituted by one of the following exact kernels:
   `Homogeneous`, `Simple_homogeneous`, `Extended_homogeneous`
   parametrized with `Gmpz`, `leda_integer` or any other number type
   modeling \f$\mathbb{Z}\f$, or `Cartesian`, `Simple_cartesian`,
   `Extended_cartesian` parametrized with `Gmpq`, `leda_rational`,
   `Quotient<Gmpz>` or any other number type modeling \f$\mathbb{Q}\f$.
 
-  The second parameter and the third parameter are for future considerations.
-  Neither `Nef_polyhedronItems_3` nor `Nef_polyhedronMarks` is
-  specified, yet. Do not use any other than the default types for these two
-  template parameters.
+  The second template parameter `Nef_polyhedronItems_3` and the third
+  template parameter `Nef_polyhedronMarks` both have default values.
+  Do not use any type other than the defaults for these two template
+  parameters.
 
   \sa `CGAL::Nef_polyhedron_3::Vertex`
   \sa `CGAL::Nef_polyhedron_3::Halfedge`
@@ -50,7 +51,7 @@ namespace CGAL {
 
 */
 template< class Nef_polyhedronTraits_3,
-          class Nef_polyhedronItems_3 = CGAL::Default_items<Nef_polyhedronTraits_3>
+          class Nef_polyhedronItems_3 = typename CGAL::Default_items<Nef_polyhedronTraits_3>::Items,
           class Nef_polyhedronMarks = bool
           > class Nef_polyhedron_3 {
 public:
@@ -1184,8 +1185,11 @@ public:
 
   creates a Nef polyhedron, which represents the same point set as
   the polyhedral surface `P` does.
+  \tparam Polyhedron a model of `FaceListGraph` and `VertexListGraph`
+          with vertices holding `Nef_polyhedronTraits_3::Point_3`.
 */
-  Nef_polyhedron_3(Polyhedron& P);
+  template <class Polyhedron>
+  explicit Nef_polyhedron_3(const Polyhedron& P);
 
 /*!
   creates a Nef polyhedron, which represents the same point set as
