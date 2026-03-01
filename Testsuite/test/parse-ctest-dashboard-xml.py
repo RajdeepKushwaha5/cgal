@@ -76,7 +76,12 @@ for t_id in range(0, len(tests)):
             labels.add(label)
             tests_per_label[label].append(t)
 
-warning_pattern=re.compile(r'(.*([^a-zA-Z_,:-])warning)', flags=re.IGNORECASE)
+# warning_pattern matches the word "warning" (case-insensitive) that either
+# appears at the start of the line or is preceded by a character that is not
+# part of a symbol / identifier.  The original pattern required at least one
+# preceding character, which caused it to miss MSVC-style deprecation warnings
+# that start a line with "Warning:" (issue #8252).
+warning_pattern=re.compile(r'(.*(?:^|[^a-zA-Z_,:-])warning)', flags=re.IGNORECASE|re.MULTILINE)
 w_det=re.compile("warning");
 filter_pattern=re.compile(r'cmake|cgal|.*\.cpp', flags=re.IGNORECASE);
 with open_file_create_dir(result_file_name.format(dir=os.getcwd(),
