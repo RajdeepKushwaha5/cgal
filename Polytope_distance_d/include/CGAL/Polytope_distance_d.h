@@ -380,8 +380,7 @@ public:
   }
 
   ~Polytope_distance_d() {
-    if (solver)
-      delete solver;
+    delete solver;
   }
 
   // access to point sets

@@ -88,8 +88,7 @@ public:
 
   ~Bounded_distance_placement()
   {
-    if(m_tree_ptr != nullptr)
-      delete m_tree_ptr;
+    delete m_tree_ptr;
   }
 
   template <typename Profile>

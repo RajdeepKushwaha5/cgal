@@ -74,8 +74,7 @@ struct TestMeshProgramInstance
 
   ~TestMeshProgramInstance()
   {
-    if (randomizer)
-      delete randomizer;
+    delete randomizer;
   }
 
   size_t numIterations;
