@@ -360,16 +360,23 @@ using std::max;
 
 // Macro CGAL_ASSUME and CGAL_UNREACHABLE
 #ifdef CGAL_CXX23
+// C++23: [[assume(expr)]] does not evaluate expr and is a true assumption hint.
 #  define CGAL_ASSUME(EX) [[ assume(EX) ]]
 #  define CGAL_UNREACHABLE() std::unreachable()
+#elif __has_builtin(__builtin_assume)
+// Clang (and compilers supporting __builtin_assume): the expression is NOT
+// evaluated, making it a true zero-cost assumption hint.
+#  define CGAL_ASSUME(EX) __builtin_assume(EX)
+#  define CGAL_UNREACHABLE() __builtin_unreachable()
 #elif __has_builtin(__builtin_unreachable) || (CGAL_GCC_VERSION > 0 && !__STRICT_ANSI__)
 // Call a builtin of the compiler to pass a hint to the compiler
 // From g++ 4.5, there exists a __builtin_unreachable()
-// Also in LLVM/clang
+// Also in LLVM/clang (fallback when __builtin_assume is not available)
+// Note: this form evaluates EX at runtime (in optimised builds).
 #  define CGAL_ASSUME(EX) if(!(EX)) { __builtin_unreachable(); }
 #  define CGAL_UNREACHABLE() __builtin_unreachable()
 #elif defined(_MSC_VER)
-// MSVC has __assume
+// MSVC has __assume: the expression is NOT evaluated.
 #  define CGAL_ASSUME(EX) __assume(EX)
 #  define CGAL_UNREACHABLE() __assume(0)
 #endif
