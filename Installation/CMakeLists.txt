@@ -469,11 +469,6 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 
     endif()
 
-    if("${GCC_VERSION}" MATCHES "^[4-9].")
-      message(STATUS "Using gcc version 4 (or greater). Adding -frounding-math")
-      uniquely_add_flags(CGAL_CXX_FLAGS "-frounding-math")
-    endif()
-
     if("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "alpha")
       message(STATUS "Using gcc on alpha. Adding -mieee -mfp-rounding-mode=d")
       uniquely_add_flags(CGAL_CXX_FLAGS "-mieee -mfp-rounding-mode=d")
