@@ -1,3 +1,5 @@
+string(TIMESTAMP CURRENT_YEAR "%Y")
+
 file(STRINGS gpl_package_list.txt package_list)
 
 foreach(LINE ${package_list})
