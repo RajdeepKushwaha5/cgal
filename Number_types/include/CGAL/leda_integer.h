@@ -216,9 +216,14 @@ struct Split_double<leda_integer>
 {
   void operator()(double d, leda_integer &num, leda_integer &den) const
   {
-    std::pair<double, double> p = split_numerator_denominator(d);
-    num = leda_integer(p.first);
-    den = leda_integer(p.second);
+    den = leda_integer(1);
+    if (d == 0.0) { num = leda_integer(0); return; }
+    const auto [mantissa, exponent] = split_mantissa_exponent(d);
+    num = leda_integer(mantissa);
+    if (exponent >= 0)
+      for (int i = 0; i < exponent; ++i) num = num + num;
+    else
+      for (int i = 0; i < -exponent; ++i) den = den + den;
   }
 };
 
