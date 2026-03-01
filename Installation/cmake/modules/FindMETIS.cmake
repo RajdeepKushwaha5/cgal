@@ -161,6 +161,17 @@ else(METIS_LIBRARIES AND METIS_INCLUDE_DIRS)
     set(METIS_INCLUDE_DIRS ${METIS_INCLUDE_DIR})
     set(METIS_LIBRARIES    ${METIS_LIBRARY})
 
+    # Recent versions of METIS (5.x built as a static library) depend on GKlib.
+    # Try to locate it next to the METIS library so that downstream targets that
+    # link against METIS will also pull in GKlib automatically (issue #7630).
+    find_library(GKLIB_LIBRARY
+                 NAMES GKlib gklib
+                 HINTS ${METIS_LIBRARY_DIR} ${METIS_DIR}
+                 PATH_SUFFIXES lib Lib)
+    if(GKLIB_LIBRARY)
+        list(APPEND METIS_LIBRARIES ${GKLIB_LIBRARY})
+    endif()
+
 
 endif(METIS_LIBRARIES AND METIS_INCLUDE_DIRS )
 
