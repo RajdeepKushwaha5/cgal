@@ -6,17 +6,17 @@ namespace CGAL {
  *
  * An object `arr` of the class `Arrangement_on_surface_with_history_2`
  * represents the planar subdivision induced by a set of input curves
- * \f$\cal C\f$.  The arrangement is represented as a doubly-connected edge-list
+ * \f$\mathcal{C}\f$.  The arrangement is represented as a doubly-connected edge-list
  * (<span class="textsc">Dcel</span>).  As is the case for the
  * `Arrangement_2<Traits,Dcel>`, each <span class="textsc">Dcel</span> vertex is
  * associated with a point and each edge is associated with an \f$x\f$-monotone
  * curve whose interior is disjoint from all other edges and vertices. Each such
- * \f$x\f$-monotone curve is a subcurve of some \f$C \in \cal C\f$ - or may
- * represent an overlap among several curves in \f$\cal C\f$.
+ * \f$x\f$-monotone curve is a subcurve of some \f$C \in \mathcal{C}\f$ - or may
+ * represent an overlap among several curves in \f$\mathcal{C}\f$.
  *
  * The `Arrangement_on_surface_with_history_2` class-template extends the
  * `Arrangement_2` class-template by keeping an additional container of input
- * curves representing \f$\cal C\f$, and by maintaining a cross-mapping between
+ * curves representing \f$\mathcal{C}\f$, and by maintaining a cross-mapping between
  * these curves and the arrangement edges they induce. This way it is possible
  * to determine the inducing curve(s) of each arrangement edge. This mapping
  * also allows the traversal of input curves, and the traversal of edges induced

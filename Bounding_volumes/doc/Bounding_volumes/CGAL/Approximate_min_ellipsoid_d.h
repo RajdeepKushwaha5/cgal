@@ -20,7 +20,7 @@ exists and is unique.
 For a given finite and full-dimensional pointset \f$ P\subset \E^d\f$ and a
 real number \f$ \epsilon\ge 0\f$, we say that an ellipsoid \f$ {\cal
 E}\subset\E^d\f$ is an <I>\f$ (1+\epsilon)\f$-approximation</I> to \f$ (P)\f$ if
-\f$ P\subset {\cal E}\f$ and \f$ ({\cal E}) \leq (1+\epsilon)
+\f$ P\subset {\mathcal{E}}\f$ and \f$ ({\mathcal{E}}) \leq (1+\epsilon)
 ((P))\f$. In other words, an \f$ (1+\epsilon)\f$-approximation to
 \f$ (P)\f$ is an enclosing ellipsoid whose volume is by at most a
 factor of \f$ 1+\epsilon\f$ larger than the volume of the smallest
@@ -66,23 +66,23 @@ ellipsoid of the projected points within \f$ H\f$; the fitting can be
 done for instance using the `linear_least_squares_fitting()`
 function from the \cgal package `Principal_component_analysis`.
 <LI>The algorithm determines that \f$ P\f$ is full-dimensional. In this
-case, it provides an approximation \f$ {\cal E}\f$ to \f$ (P)\f$, but
+case, it provides an approximation \f$ {\mathcal{E}}\f$ to \f$ (P)\f$, but
 depending on the input problem (i.e., on the pair \f$ (P,\epsilon)\f$),
 it may not have achieved the desired approximation ratio but merely
 some <I>worse</I> approximation ratio \f$ 1+\epsilon'>1+\epsilon\f$. The
 achieved approximation ratio \f$ 1+\epsilon'\f$ can be queried using
 `achieved_epsilon()`, which returns \f$ \epsilon'\f$. The ellipsoid
-\f$ {\cal E}\f$ itself can be queried via the methods
+\f$ {\mathcal{E}}\f$ itself can be queried via the methods
 `defining_matrix()`, `defining_vector()`, and
 `defining_scalar()`.
 </UL>
 
-The ellipsoid \f$ {\cal E}\f$ computed by the algorithm satisfies the inclusions
+The ellipsoid \f$ {\mathcal{E}}\f$ computed by the algorithm satisfies the inclusions
 \anchor eqapproximate_min_ellipsoid_incl
 \f[
-\frac{1}{(1+\epsilon')d} {\cal E} \subseteq \mathop{\rm conv}\nolimits(P) \subseteq {\cal E}
+\frac{1}{(1+\epsilon')d} {\mathcal{E}} \subseteq \mathop{\rm conv}\nolimits(P) \subseteq {\mathcal{E}}
 \f]
-where \f$ f {\cal E}\f$ denotes the ellipsoid \f$ {\cal E}\f$ scaled by the
+where \f$ f {\mathcal{E}}\f$ denotes the ellipsoid \f$ {\mathcal{E}}\f$ scaled by the
 factor \f$ f\in\mathbb{R}^+\f$ with respect to its center, and where \f$ \mathop{\rm
 conv}\nolimits(A)\f$ denotes the <I>convex hull</I> of a pointset
 \f$ A\subset \E^d\f$.
@@ -230,13 +230,13 @@ const Traits& traits = Traits() );
 /// \name Access Functions
 /// The following methods can be used to query the achieved
 /// approximation ratio \f$ 1+\epsilon'\f$ and the computed ellipsoid
-/// \f$ {\cal E} = \{ x\in\E^d \mid x^T E x + x^T e + \eta\leq 0
+/// \f$ {\mathcal{E}} = \{ x\in\E^d \mid x^T E x + x^T e + \eta\leq 0
 /// \}\f$. The methods `defining_matrix()`, `defining_vector()`, and
 /// `defining_scalar()` do not return \f$ E\f$, \f$ e\f$, and \f$
 /// \eta\f$ directly but yield multiples of these quantities that are
 /// exactly representable using the `double` type. (This is necessary
 /// because the parameters \f$ E\f$, \f$ e\f$, and \f$ \eta\f$ of the
-/// computed approximation ellipsoid \f$ {\cal E}\f$ might not be
+/// computed approximation ellipsoid \f$ {\mathcal{E}}\f$ might not be
 /// exactly representable as `double` numbers.) In order to access the
 /// center and semiaxes of the computed approximation ellipsoid, the
 /// functions `center_cartesian_begin()`, `axes_lengths_begin()`, and
@@ -270,7 +270,7 @@ double achieved_epsilon() const;
 
 gives access to the \f$ (i,j)\f$th entry of the matrix \f$ E\f$ in the
 representation \f$ \{ x\in\E^d \mid x^T E x + x^T e + \eta\leq0
-\}\f$ of the computed approximation ellipsoid \f$ {\cal E}\f$. The number returned by
+\}\f$ of the computed approximation ellipsoid \f$ {\mathcal{E}}\f$. The number returned by
 this routine is \f$ (1+\epsilon')(d+1)\,E_{ij}\f$, where \f$ \epsilon'\f$ is
 the number returned by `achieved_epsilon()`.
 \pre \f$ 0\leq i,j\leq d\f$, where \f$ d\f$ is the dimension of the points \f$ P\f$, and `ame.is_full_dimensional() == true`.
@@ -281,7 +281,7 @@ double defining_matrix(int i,int j) const;
 
 gives access to the \f$ i\f$th entry of the vector \f$ e\f$ in the
 representation \f$ \{ x\in\E^d \mid x^T E x + x^T e + \eta\leq0
-\}\f$ of the computed approximation ellipsoid \f$ {\cal E}\f$. The number returned by
+\}\f$ of the computed approximation ellipsoid \f$ {\mathcal{E}}\f$. The number returned by
 this routine is \f$ (1+\epsilon')(d+1)\,e_{i}\f$, where \f$ \epsilon'\f$ is
 the number returned by `achieved_epsilon()`.
 \pre \f$ 0\leq i\leq d\f$, where \f$ d\f$ is the dimension of the points \f$ P\f$, and `ame.is_full_dimensional() == true`.
@@ -292,7 +292,7 @@ double defining_vector(int i) const;
 
 gives access to the scalar \f$ \eta\f$ from the
 representation \f$ \{ x\in\E^d \mid x^T E x + x^T e + \eta\leq0
-\}\f$ of the computed approximation ellipsoid \f$ {\cal E}\f$. The number returned by
+\}\f$ of the computed approximation ellipsoid \f$ {\mathcal{E}}\f$. The number returned by
 this routine is \f$ (1+\epsilon')(d+1)\,(\eta+1)\f$, where \f$ \epsilon'\f$ is
 the number returned by `achieved_epsilon()`.
 \pre `ame.is_full_dimensional() == true`.

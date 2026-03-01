@@ -5,12 +5,12 @@
 
 For a given polynomial \f$ p\f$ this `AdaptableUnaryFunction` computes the
 unique representative of the set
-\f[ {\cal P} := \{ q\ |\ \lambda * q = p\ for\ some\ \lambda \in R \}, \f]
+\f[ {\mathcal{P}} := \{ q\ |\ \lambda * q = p\ for\ some\ \lambda \in R \}, \f]
 where \f$ R\f$ is the base of the polynomial ring.
 
 In case `PolynomialTraits::Innermost_coefficient_type` is a model of
 `Field`, the computed polynomial is the <I>monic</I> polynomial in
-\f$ \cal P\f$, that is, the innermost leading coefficient equals one.
+\f$ \mathcal{P}\f$, that is, the innermost leading coefficient equals one.
 
 In case `PolynomialTraits::Innermost_coefficient_type` is a model
 of `UniqueFactorizationDomain`, the computed polynomial is the one with

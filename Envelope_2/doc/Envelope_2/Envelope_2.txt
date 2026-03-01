@@ -27,28 +27,28 @@ handle inputs that contain such vertical curves.
 
 An \f$ x\f$-monotone curve can be represented as a univariate function
 \f$ y = C(x)\f$, defined over some continuous range \f$ R_C \subseteq {\mathbb R}\f$.
-Given a set \f$ {\cal C} = \{ C_1, C_2, \ldots, C_n \}\f$ of \f$ x\f$-monotone
+Given a set \f$ {\mathcal{C}} = \{ C_1, C_2, \ldots, C_n \}\f$ of \f$ x\f$-monotone
 curves, their <I>lower envelope</I> is defined as the point-wise minimum of
-all curves. Namely, the lower envelope of the set \f$ {\cal C}\f$ can be
+all curves. Namely, the lower envelope of the set \f$ {\mathcal{C}}\f$ can be
 defined as the following function:
 
 \f{eqnarray*}{
-{\cal L}_{{\cal C}} (x) = \min_{1 \leq k \leq n}{\overline{C}_k (x)} \ ,
+{\mathcal{L}}_{{\mathcal{C}}} (x) = \min_{1 \leq k \leq n}{\overline{C}_k (x)} \ ,
 \f}
 
 where we define \f$\overline{C}_k(x) = C_k(x)\f$ for \f$x \in R_{C_k}\f$,
 and \f$\overline{C}_k(x) = \infty\f$ otherwise.
 
-Similarly, the <I>upper envelope</I> of \f${\cal C}\f$ is the point-wise maximum of
+Similarly, the <I>upper envelope</I> of \f${\mathcal{C}}\f$ is the point-wise maximum of
 the \f$x\f$-monotone curves in the set:
 \f{eqnarray*}{
-{\cal U}_{{\cal C}} (x) = \max_{1 \leq k \leq n}{\underline{C}_k (x)} \ ,
+{\mathcal{U}}_{{\mathcal{C}}} (x) = \max_{1 \leq k \leq n}{\underline{C}_k (x)} \ ,
 \f}
 where in this case \f$ \underline{C}_k(x) = -\infty\f$ for \f$ x
 \not\in R_{C_k}\f$.
 
-Given a set of \f$ x\f$-monotone curves \f$ {\cal C}\f$, the <I>minimization
-diagram</I> of \f$ {\cal C}\f$ is a subdivision of the \f$ x\f$-axis into cells,
+Given a set of \f$ x\f$-monotone curves \f$ {\mathcal{C}}\f$, the <I>minimization
+diagram</I> of \f$ {\mathcal{C}}\f$ is a subdivision of the \f$ x\f$-axis into cells,
 such that the identity of the curves that induce the lower envelope
 over a specific cell of the subdivision (an edge or a vertex) is the
 same. In non-degenerate situations, an edge - which represents a
@@ -66,10 +66,10 @@ divide-and-conquer approach. First, note that the envelope diagram for
 a single \f$ x\f$-monotone curve \f$ C_k\f$ is trivial to compute: we project
 the boundary of its range of definition \f$ R_{C_k}\f$ onto the \f$ x\f$-axis
 and label the features it induces accordingly. Given a set
-\f$ {\cal D}\f$ of (non necessarily \f$ x\f$-monotone) curves in \f$ {\mathbb R}^2\f$,
+\f$ {\mathcal{D}}\f$ of (non necessarily \f$ x\f$-monotone) curves in \f$ {\mathbb R}^2\f$,
 we subdivide each curve into a finite number of weakly \f$ x\f$-monotone
-curves, and obtain the set \f$ {\cal C}\f$. Then, we split the set into two
-disjoint subsets \f$ {\cal C}_1\f$ and \f$ {\cal C}_2\f$, and we compute their envelope
+curves, and obtain the set \f$ {\mathcal{C}}\f$. Then, we split the set into two
+disjoint subsets \f$ {\mathcal{C}}_1\f$ and \f$ {\mathcal{C}}_2\f$, and we compute their envelope
 diagrams recursively. Finally, we merge the diagrams in linear time by
 traversing both diagrams in parallel.
 
@@ -165,14 +165,14 @@ The next example computes the convex hull of a set of input points
 by constructing envelopes of unbounded curves, in our case lines
 that are dual to the input points. Here use the
 `Arr_linear_traits_2` class to compute the lower envelope of the
-set of dual lines. We read a set of points \f$ {\cal P} = p_1, \ldots, p_n\f$
+set of dual lines. We read a set of points \f$ {\mathcal{P}} = p_1, \ldots, p_n\f$
 from an input file, and construct the corresponding dual lines
-\f$ {\cal P}^{*} = p^{*}_1, \ldots, p^{*}_n\f$, where the line \f$ p^{*}\f$ dual
+\f$ {\mathcal{P}}^{*} = p^{*}_1, \ldots, p^{*}_n\f$, where the line \f$ p^{*}\f$ dual
 to a point \f$ p = (p_x, p_y)\f$ is given by \f$ y = p_x x - p_y\f$. We then
-compute the convex hull of the point-set \f$ {\cal P}\f$, using the fact that
-the lines that form the lower envelope of \f$ {\cal P}^{*}\f$ are dual to the
-points along the <I>upper</I> part of \f$ {\cal P}\f$'s convex hull, and the
-lines that form the upper envelope of \f$ {\cal P}^{*}\f$ are dual to the
+compute the convex hull of the point-set \f$ {\mathcal{P}}\f$, using the fact that
+the lines that form the lower envelope of \f$ {\mathcal{P}}^{*}\f$ are dual to the
+points along the <I>upper</I> part of \f$ {\mathcal{P}}\f$'s convex hull, and the
+lines that form the upper envelope of \f$ {\mathcal{P}}^{*}\f$ are dual to the
 points along the <I>lower</I> part of the convex hull; see,
 e.g., \cgalCite{bkos-cgaa-97}, Section 11.4 for more details.
 Note that the leftmost edge of the minimization diagram is associated

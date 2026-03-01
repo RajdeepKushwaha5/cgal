@@ -23,26 +23,26 @@ upper hemisphere and a lower hemisphere, these two hemispheres are
 An \f$ xy\f$-monotone surface can therefore be represented as a
 bivariate function \f$ z = S(x,y)\f$, defined over some continuous range
 \f$ R_S \subseteq {\mathbb R}^2\f$. Given a set
-\f$ {\cal S} = \{ S_1, S_2, \ldots, S_n \}\f$ of \f$ xy\f$-monotone surfaces,
+\f$ {\mathcal{S}} = \{ S_1, S_2, \ldots, S_n \}\f$ of \f$ xy\f$-monotone surfaces,
 their <I>lower envelope</I> is defined
 as the point-wise minimum of all surfaces. Namely, the lower envelope
-of the set \f$ {\cal S}\f$ can be defined as the following function:
+of the set \f$ {\mathcal{S}}\f$ can be defined as the following function:
 \f{eqnarray*}{
-{\cal L}_{{\cal S}} (x,y) = \min_{1 \leq k \leq n}{\overline{S}_k (x,y)} \ ,
+{\mathcal{L}}_{{\mathcal{S}}} (x,y) = \min_{1 \leq k \leq n}{\overline{S}_k (x,y)} \ ,
 \f}
 where we define \f$\overline{S}_k(x,y) = S_k(x,y)\f$ for \f$(x,y) \in R_{S_k}\f$, and
 \f$\overline{S}_k(x,y) = \infty\f$ otherwise.
 
-Similarly, the <I>upper envelope</I> of \f${\cal S}\f$ is the point-wise maximum of
+Similarly, the <I>upper envelope</I> of \f${\mathcal{S}}\f$ is the point-wise maximum of
 the \f$xy\f$-monotone surfaces in the set:
 \f{eqnarray*}{
-{\cal U}_{{\cal S}} (x,y) = \max_{1 \leq k \leq n}{\underline{S}_k (x,y)} \ ,
+{\mathcal{U}}_{{\mathcal{S}}} (x,y) = \max_{1 \leq k \leq n}{\underline{S}_k (x,y)} \ ,
 \f}
 where in this case \f$ \underline{S}_k(x,y) = -\infty\f$ for \f$ (x,y) \not\in
 R_{S_k}\f$.
 
-Given a set of \f$ xy\f$-monotone surfaces \f$ {\cal S}\f$, the <I>minimization
-diagram</I> of \f$ {\cal S}\f$ is a subdivision of the \f$ xy\f$-plane into cells,
+Given a set of \f$ xy\f$-monotone surfaces \f$ {\mathcal{S}}\f$, the <I>minimization
+diagram</I> of \f$ {\mathcal{S}}\f$ is a subdivision of the \f$ xy\f$-plane into cells,
 such that the identity of the surfaces that induce the lower diagram
 over a specific cell of the subdivision (be it a face, an edge, or
 a vertex) is the same. In non-degenerate situation, a face is
@@ -67,14 +67,14 @@ Lower and upper envelopes can be efficiently computed using a
 divide-and-conquer approach. First note that the envelope diagram for
 a single \f$ xy\f$-monotone curve \f$ S_k\f$ is trivial to compute: we project
 the boundary of its range of definition \f$ R_{S_k}\f$ onto the \f$ xy\f$-plane,
-and label the faces it induces accordingly. Given a set \f$ {\cal D}\f$
+and label the faces it induces accordingly. Given a set \f$ {\mathcal{D}}\f$
 of (non necessarily \f$ xy\f$-monotone) surfaces in \f$ {\mathbb R}^3\f$, we subdivide
 each surface into a finite number of weakly \f$ xy\f$-monotone
 surfaces, \cgalFootnote{We consider <I>vertical</I> surfaces, namely patches
 of planes that are perpendicular to the \f$ xy\f$-plane, as <I>weakly</I>
 \f$ xy\f$-monotone, to handle degenerate inputs properly.}
-and obtain the set \f$ {\cal S}\f$. Then, we split the set into two
-disjoint subsets \f$ {\cal S}_1\f$ and \f$ {\cal S}_2\f$, and we
+and obtain the set \f$ {\mathcal{S}}\f$. Then, we split the set into two
+disjoint subsets \f$ {\mathcal{S}}_1\f$ and \f$ {\mathcal{S}}_2\f$, and we
 compute their envelope diagrams recursively.  Finally, we merge the
 diagrams, and we do this by overlaying them and then applying some
 post-processing on the resulting diagram. The post-processing stage is
