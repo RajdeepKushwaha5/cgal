@@ -836,6 +836,17 @@ public:
 protected:
   void compile_shaders()
   {
+    if(!isOpenGL_4_3())
+    {
+      QSurfaceFormat cur_fmt = this->format();
+      std::cerr << "CGAL Basic_viewer warning: OpenGL >= 4.3 is required for "
+                   "full rendering (transparency, clipping planes, geometry "
+                   "features). The current context is OpenGL "
+                << cur_fmt.majorVersion() << "." << cur_fmt.minorVersion()
+                << ". Some features will be disabled and rendering may be "
+                   "incorrect (e.g. black faces).\n";
+    }
+
     rendering_program_face.removeAllShaders();
     rendering_program_p_l.removeAllShaders();
     rendering_program_line.removeAllShaders();
