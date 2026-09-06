@@ -28,7 +28,6 @@
 
 #include <utility>
 #include <istream>
-#include <cmath>
 
 #include <CGAL/Interval_nt.h>
 #include <CGAL/Kernel/mpl.h>
@@ -673,48 +672,21 @@ template < class NT > class Real_embeddable_traits_quotient_base< Quotient<NT> >
           if (x.den == 1)
             return CGAL_NTS to_double(x.num);
 
-          // Compute to_double(num) / to_double(den) without:
-          //  - RT (ring-type) division (issue #1053 / issue #1815), and
-          //  - incorrect results when to_double() overflows to ±infinity.
+          // Convert the numerator and the denominator separately and let IEEE
+          // arithmetic perform the division.  NT is only required to be a model
+          // of IntegralDomainWithoutDivision, so the division must not be done
+          // in NT (issue #1053).  The previous implementation also tested
+          // is_finite() on the NT values instead of on the converted doubles,
+          // which is what made the overflow handling ineffective (issue #1815):
+          // for an integer type is_finite() is always true, so the test never
+          // fired and the result was inf/inf, that is NaN.
           //
-          // Fast path: both fit in a normal double → simple division.
-          double nd = CGAL_NTS to_double(x.num);
-          double dd = CGAL_NTS to_double(x.den);
-
-          if (CGAL_NTS is_finite(nd) && CGAL_NTS is_finite(dd))
-            return nd / dd;
-
-          // Slow path: at least one overflows to ±inf.
-          // Use to_interval on numerator and denominator independently and
-          // divide the resulting intervals.  The midpoint of the resulting
-          // interval is the best double approximation we can obtain without
-          // RT arithmetic.
-          //
-          // Note: when *both* num and den overflow double, to_interval()
-          // returns intervals containing ±infinity for each.  The resulting
-          // quotient interval is then very wide (e.g. [0, +inf]) and the
-          // midpoint is meaningless.  This is an inherent limitation for
-          // generic ring types that lack to_double_exp().  Number types
-          // for which this matters (MP_Float, Gmpz, Gmpzf) provide
-          // specializations of To_double that avoid this path.
-          const Interval_nt<> nI(CGAL_NTS to_interval(x.num));
-          const Interval_nt<> dI(CGAL_NTS to_interval(x.den));
-          const Interval_nt<> quot = nI / dI;
-
-          // Use inf + (sup - inf) * 0.5 instead of (inf + sup) * 0.5
-          // to avoid overflow when both bounds are near DBL_MAX.
-          double mid = quot.inf() + (quot.sup() - quot.inf()) * 0.5;
-
-          if (CGAL_NTS is_finite(mid))
-            return mid;
-
-          // Both num and den overflow; return the largest representable
-          // finite value with the correct sign.
-          if (quot.inf() >= 0.0)
-            return (std::numeric_limits<double>::max)();
-          if (quot.sup() <= 0.0)
-            return -(std::numeric_limits<double>::max)();
-          return 0.0;
+          // Out of range values are reported the way IEEE reports them: 0 when
+          // the quotient underflows, +-inf when only the numerator overflows,
+          // and NaN when both the numerator and the denominator overflow, in
+          // which case no double approximation can be determined from the two
+          // converted values alone.
+          return CGAL_NTS to_double(x.num) / CGAL_NTS to_double(x.den);
         }
     };
 
